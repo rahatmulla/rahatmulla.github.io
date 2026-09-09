@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahat Mulla — Computer Science Engineer</title>
+<meta name="description" content="Portfolio of Rahat Mulla — Computer Science Engineering graduate based in Dubai, UAE. AI tools, automation pipelines, and data dashboards.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #12182A;
+    --ink-soft: #232B44;
+    --paper: #EEEAE0;
+    --paper-dim: #E4DFD1;
+    --line: #C9C2AE;
+    --line-on-ink: #3A4260;
+    --amber: #D9922F;
+    --teal: #3F7C78;
+    --white: #F7F5EF;
+    --text: #1B2033;
+    --text-soft: #55597A;
+    --radius: 3px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1,h2,h3{
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  a{ color: inherit; }
+  .mono{
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* corner tick-mark motif, used on bordered panels */
+  .ticked{
+    position: relative;
+    border: 1px solid var(--line);
+  }
+  .ticked::before, .ticked::after,
+  .ticked .tick-br, .ticked .tick-bl{
+    content:"";
+    position:absolute;
+    width:10px; height:10px;
+    border-color: var(--amber);
+    border-style: solid;
+    border-width: 0;
+  }
+  .ticked::before{ top:-1px; left:-1px; border-top-width:2px; border-left-width:2px; }
+  .ticked::after{ top:-1px; right:-1px; border-top-width:2px; border-right-width:2px; }
+  .ticked .tick-bl{ bottom:-1px; left:-1px; border-bottom-width:2px; border-left-width:2px; }
+  .ticked .tick-br{ bottom:-1px; right:-1px; border-bottom-width:2px; border-right-width:2px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(238,234,224,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height: 64px;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600; font-size:1.05rem; letter-spacing: 0.01em;
+    text-decoration:none; color: var(--ink);
+  }
+  .navlinks{ display:flex; gap: 28px; list-style:none; margin:0; padding:0; }
+  .navlinks a{
+    text-decoration:none; font-size: 0.92rem; color: var(--text-soft);
+    transition: color .15s ease;
+  }
+  .navlinks a:hover{ color: var(--ink); }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background: var(--ink);
+    color: var(--white);
+    padding: 96px 0 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--line-on-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-on-ink) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .hero-inner{ position: relative; z-index:1; }
+  .hero-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--amber);
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    color: var(--white);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.08;
+    max-width: 14ch;
+  }
+  .hero p.lede{
+    max-width: 46ch;
+    margin-top: 20px;
+    font-size: 1.08rem;
+    color: #C7CBE0;
+  }
+  .hero-actions{
+    margin-top: 34px;
+    display:flex; gap: 14px; flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding: 12px 22px;
+    text-decoration:none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-on-ink);
+    transition: background .15s ease, border-color .15s ease, transform .1s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .btn-primary:hover{ background:#e8a548; }
+  .btn-ghost{
+    color: var(--white);
+    border-color: var(--line-on-ink);
+  }
+  .btn-ghost:hover{ border-color: var(--amber); color: var(--amber); }
+
+  .hero-stats{
+    margin-top: 56px;
+    display:flex; flex-wrap: wrap;
+    border-top: 1px solid var(--line-on-ink);
+    padding-top: 24px;
+    gap: 40px;
+  }
+  .hero-stats div{ min-width: 140px; }
+  .hero-stats .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 1.05rem; color: var(--white); font-weight: 600;
+  }
+  .hero-stats .lbl{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.76rem; color: #8891B5; margin-top: 4px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 88px 0; }
+  section + section{ border-top: 1px solid var(--line); }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap: 24px; margin-bottom: 44px; flex-wrap: wrap;
+  }
+  .section-head h2{ font-size: 1.7rem; }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--teal); font-size: 0.85rem;
+  }
+  .section-sub{ color: var(--text-soft); max-width: 56ch; margin-top: 10px; }
+
+  /* about */
+  .about-grid{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap: 56px;
+    align-items: start;
+  }
+  .about-grid p{ font-size: 1.05rem; color: var(--text); }
+  .about-grid p + p{ margin-top: 16px; }
+  .fact-list{ list-style:none; margin:0; padding:0; border-top: 1px solid var(--line); }
+  .fact-list li{
+    display:flex; justify-content:space-between; gap: 16px;
+    padding: 13px 0; border-bottom: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .fact-list span:first-child{ color: var(--text-soft); font-family:'IBM Plex Mono', monospace; font-size:0.8rem; }
+
+  /* case study (internship) */
+  .case-meta{
+    display:flex; gap: 24px; flex-wrap: wrap;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.8rem;
+    color: var(--text-soft); margin-bottom: 36px;
+  }
+  .case-meta strong{ color: var(--ink); font-weight: 500; }
+  .case-note{
+    background: var(--paper-dim);
+    border-left: 3px solid var(--teal);
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    margin-bottom: 44px;
+  }
+  .chapters{
+    display:flex; flex-direction:column; gap: 20px;
+  }
+  .chapter{
+    background: var(--white);
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .chapter.reverse{ direction: rtl; }
+  .chapter.reverse > *{ direction: ltr; }
+  .chapter-copy{ padding: 30px 30px; }
+  .chapter-shots{
+    display:grid;
+    grid-template-columns: repeat(var(--shot-cols, 1), 1fr);
+    gap: 2px;
+    background: var(--paper-dim);
+  }
+  .chapter-shots img{
+    width:100%; height:100%;
+    object-fit: cover;
+    display:block;
+    min-height: 180px;
+  }
+  .chapter-shots.single img{ min-height: 100%; }
+  .chapter h3{ font-size: 1.08rem; margin-bottom: 6px; }
+  .chapter .idx{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--amber); font-size: 0.78rem; display:block; margin-bottom: 10px;
+  }
+  .chapter p{ font-size: 0.92rem; color: var(--text-soft); margin: 10px 0 14px; }
+  .tags{ display:flex; flex-wrap:wrap; gap: 6px; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    color: var(--text-soft);
+    border-radius: 2px;
+  }
+
+  /* projects */
+  .projects{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .project{
+    padding: 24px 22px;
+    background: var(--white);
+    display:flex; flex-direction:column; height:100%;
+  }
+  .project h3{ font-size: 1.02rem; }
+  .project p{ font-size: 0.88rem; color: var(--text-soft); margin: 10px 0 16px; flex-grow:1; }
+  .project a.repo-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.8rem; text-decoration:none;
+    color: var(--teal); border-bottom: 1px solid transparent;
+  }
+  .project a.repo-link:hover{ border-bottom-color: var(--teal); }
+
+  /* skills */
+  .skills-cols{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 36px;
+  }
+  .skills-cols h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.8rem; color: var(--teal);
+    text-transform: none;
+    margin-bottom: 14px; font-weight:500;
+  }
+  .skills-cols ul{ list-style:none; margin:0; padding:0; }
+  .skills-cols li{
+    padding: 9px 0; border-top: 1px solid var(--line);
+    font-size: 0.93rem;
+  }
+  .skills-cols li:last-child{ border-bottom: 1px solid var(--line); }
+
+  /* footer / contact */
+  footer{
+    background: var(--ink); color: var(--white);
+    padding: 72px 0 40px;
+  }
+  footer h2{ color: var(--white); font-size: 1.9rem; max-width: 16ch; }
+  footer p.lede{ color:#C7CBE0; max-width:44ch; margin-top:14px; }
+  .contact-row{
+    margin-top: 36px;
+    display:flex; gap: 16px; flex-wrap: wrap;
+  }
+  .foot-bottom{
+    margin-top: 64px; padding-top: 22px;
+    border-top: 1px solid var(--line-on-ink);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.76rem; color:#8891B5;
+  }
+
+  @media (max-width: 760px){
+    .wrap{ padding: 0 20px; }
+    .navlinks{ display:none; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .chapter{ grid-template-columns: 1fr; }
+    .chapter-shots img{ min-height: 220px; }
+    .projects{ grid-template-columns: 1fr; }
+    .skills-cols{ grid-template-columns: 1fr; gap: 28px; }
+    section{ padding: 64px 0; }
+    header.hero{ padding: 72px 0 56px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand">RAHAT MULLA</a>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#internship">Internship</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="hero-kicker">// Computer Science Engineering — Dubai, UAE</div>
+    <h1>Building software that automates the fiddly parts of real events and real businesses.</h1>
+    <p class="lede">I'm a CS engineering graduate from Manipal Academy of Higher Education, Dubai. I build AI-assisted tools, automation pipelines, and data dashboards — and I like projects that end with something a non-technical person can actually use.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View projects</a>
+      <a class="btn btn-ghost" href="https://github.com/rahatmulla" target="_blank" rel="noopener">GitHub ↗</a>
+      <!-- Replace with your resume file once it's in the repo, e.g. "resume.pdf" -->
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="num">MAHE Dubai</div>
+        <div class="lbl">B.Tech, Computer Science Engineering</div>
+      </div>
+      <div>
+        <div class="num">Leap Interactive</div>
+        <div class="lbl">R&amp;D Intern, Feb–Jun 2025</div>
+      </div>
+      <div>
+        <div class="num">Python · Power BI · AutoCAD</div>
+        <div class="lbl">Core toolkit</div>
+      </div>
+      <div>
+        <div class="num">Dubai, UAE</div>
+        <div class="lbl">Open to roles / internships</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="section-num mono">01 — About</div>
+      <h2 style="margin-top:10px;">A CS engineer who'd rather ship the tool than talk about it.</h2>
+      <p style="margin-top:22px;">I graduated in Computer Science Engineering from Manipal Academy of Higher Education, Dubai. Most of what I've built sits at the intersection of automation and design — desktop apps, image-processing pipelines, and dashboards that turn raw exports into something a manager can act on in five minutes.</p>
+      <p>During my internship at Leap Interactive, an AI and event-technology company in Dubai, I worked across four R&amp;D projects — from an AI-assisted photobooth generator to a control panel for physical robots. Outside of that, I maintain a set of personal data and automation projects on GitHub.</p>
+    </div>
+    <ul class="fact-list">
+      <li><span>Location</span><span>Dubai, UAE</span></li>
+      <li><span>Education</span><span>B.Tech CSE, MAHE Dubai</span></li>
+      <li><span>Core skills</span><span>Python, Power BI, AutoCAD</span></li>
+      <li><span>Languages</span><span>English, conversational Arabic</span></li>
+      <li><span>Status</span><span>Open to roles &amp; internships</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="internship">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">02 — Internship</div>
+        <h2 style="margin-top:10px;">R&amp;D Intern, Leap Interactive</h2>
+        <p class="section-sub">Four projects built for an AI and event-technology studio — spanning desktop software, computer vision automation, a live control interface, and an image pipeline for drone light shows.</p>
+      </div>
+    </div>
+
+    <div class="case-meta">
+      <span><strong>Company</strong> Leap Interactive Artificial Intelligence Developing Services LLC, Dubai</span>
+      <span><strong>Role</strong> Computer Science Engineering Intern, Engineering &amp; Design</span>
+      <span><strong>Duration</strong> Feb – Jun 2025</span>
+    </div>
+
+    <div class="case-note">
+      This work was built under an employer confidentiality and IP-assignment agreement, so the source code stays private — the write-ups below describe what each system does and how it was built, the way the internship report presented it.
+    </div>
+
+    <div class="chapters">
+
+      <div class="chapter ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <div class="chapter-copy">
+          <span class="idx">CHAPTER 1</span>
+          <h3>AI Photobooth Frame Generator</h3>
+          <p>A PyQt5 desktop app for designing event photobooth frames — logo placement, colour extraction from brand assets, 8 frame layouts, and custom captions. Version 1 added OpenAI's DALL·E to generate theme artwork from a plain-text event name, blending AI backgrounds with manual editing.</p>
+          <div class="tags">
+            <span class="tag">PyQt5</span><span class="tag">Pillow</span><span class="tag">OpenAI DALL·E</span>
+          </div>
+        </div>
+        <div class="chapter-shots" style="--shot-cols:2;">
+          <img src="img/chapter1-app.jpg" alt="Photobooth Layout Generator desktop app, showing logo placement and frame border controls" style="grid-column: 1 / -1;">
+          <img src="img/chapter1-frame-goat.jpg" alt="AI-generated photobooth frame in a goat and crescent moon theme">
+          <img src="img/chapter1-frame-floral.jpg" alt="AI-generated photobooth frame in a floral theme">
+        </div>
+      </div>
+
+      <div class="chapter reverse ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <div class="chapter-shots single" style="--shot-cols:1;">
+          <img src="img/chapter2-booth.jpg" alt="180-degree photobooth rig set up on location with Leap Interactive branding overlay">
+        </div>
+        <div class="chapter-copy">
+          <span class="idx">CHAPTER 2</span>
+          <h3>180° Photobooth GIF System</h3>
+          <p>An automated pipeline that watches a folder for new 180° booth captures, corrects lens distortion, overlays branding, uploads the finished GIF to Google Drive, and generates a QR code so guests can scan and download instantly.</p>
+          <div class="tags">
+            <span class="tag">OpenCV</span><span class="tag">Google Drive API</span><span class="tag">qrcode</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <div class="chapter-copy">
+          <span class="idx">CHAPTER 3</span>
+          <h3>Smart Robot Control Panel</h3>
+          <p>A real-time web dashboard for issuing commands to event robots — live connection status, an authenticated login flow, and animated feedback for each command, sent asynchronously to the robot's API endpoints.</p>
+          <div class="tags">
+            <span class="tag">HTML/CSS/JS</span><span class="tag">FastAPI</span><span class="tag">REST</span>
+          </div>
+        </div>
+        <div class="chapter-shots" style="--shot-cols:1;">
+          <img src="img/chapter3-panel.jpg" alt="Robot Control Panel dashboard with move, dance, and wave command buttons">
+          <img src="img/chapter3-login.jpg" alt="Glassmorphism login modal for the robot control panel">
+        </div>
+      </div>
+
+      <div class="chapter reverse ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <div class="chapter-shots" style="--shot-cols:2;">
+          <img src="img/chapter4-skyline.jpg" alt="Drone light-show point-sampled portrait composited over the Dubai skyline">
+          <img src="img/chapter4-falcon.jpg" alt="Drone light-show point-sampled illustration of a falconer">
+        </div>
+        <div class="chapter-copy">
+          <span class="idx">CHAPTER 4</span>
+          <h3>Image Pipeline for Drone Visuals</h3>
+          <p>A batch pipeline that removes backgrounds, detects and crops around faces, enhances contrast and colour, then samples the image into a point grid — exporting SVG vector art and JSON/CSV coordinate files ready to feed drone light-show formation software.</p>
+          <div class="tags">
+            <span class="tag">OpenCV</span><span class="tag">rembg</span><span class="tag">Matplotlib</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">03 — Projects</div>
+        <h2 style="margin-top:10px;">Data &amp; automation, on GitHub</h2>
+        <p class="section-sub">Personal projects — mostly Python automation and Power BI dashboards built on real or public datasets. Code is public on GitHub.</p>
+      </div>
+    </div>
+
+    <div class="projects">
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>Report_Merger</h3>
+        <p>A Python script that consolidates Amazon KSA and Noon KSA sales reports into a single merged output, replacing a manual spreadsheet process.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla/Report_Merger" target="_blank" rel="noopener">github.com/rahatmulla/Report_Merger ↗</a>
+      </div>
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>Uber Performance Dashboard</h3>
+        <p>A Power BI/DAX dashboard tracking bookings, revenue, and distance KPIs by vehicle type, with monthly and quarterly trend analysis.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla?tab=repositories" target="_blank" rel="noopener">view on GitHub ↗</a>
+      </div>
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>Sales &amp; Product Performance Dashboard</h3>
+        <p>A Power BI/DAX dashboard breaking down sales and product performance for tracking and reporting.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla?tab=repositories" target="_blank" rel="noopener">view on GitHub ↗</a>
+      </div>
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>Customer Booking Analysis</h3>
+        <p>A Python exploratory data analysis project examining customer booking behaviour and patterns.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla?tab=repositories" target="_blank" rel="noopener">view on GitHub ↗</a>
+      </div>
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>Global Layoffs Analysis</h3>
+        <p>A SQL and Excel-based analysis of global layoffs data, using MySQL for cleaning and querying.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla?tab=repositories" target="_blank" rel="noopener">view on GitHub ↗</a>
+      </div>
+      <div class="project ticked">
+        <span class="tick-bl"></span><span class="tick-br"></span>
+        <h3>More on GitHub</h3>
+        <p>A few additional repos live on my profile — browse everything in one place.</p>
+        <a class="repo-link" href="https://github.com/rahatmulla" target="_blank" rel="noopener">github.com/rahatmulla ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num mono">04 — Skills</div>
+        <h2 style="margin-top:10px;">Toolkit</h2>
+      </div>
+    </div>
+    <div class="skills-cols">
+      <div>
+        <h4>Programming &amp; data</h4>
+        <ul>
+          <li>Python</li>
+          <li>SQL / MySQL</li>
+          <li>OpenCV</li>
+          <li>HTML / CSS / JavaScript</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Analytics &amp; design</h4>
+        <ul>
+          <li>Microsoft Power BI / DAX</li>
+          <li>Excel</li>
+          <li>AutoCAD</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tools &amp; platforms</h4>
+        <ul>
+          <li>Google Drive API</li>
+          <li>Git / GitHub</li>
+          <li>OpenAI API</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="section-num mono" style="color:var(--amber);">05 — Contact</div>
+    <h2 style="margin-top:10px;">Let's talk about a role.</h2>
+    <p class="lede">I'm currently looking for full-time roles and internships in software, data, or automation-focused positions in the UAE.</p>
+    <div class="contact-row">
+      <!-- Fill in your real details before publishing -->
+      <a class="btn btn-primary" href="mailto:youremail@example.com">Email me</a>
+      <a class="btn btn-ghost" href="https://github.com/rahatmulla" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="foot-bottom">
+      <span>Rahat Mulla — Dubai, UAE</span>
+      <span>Built &amp; maintained on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
